@@ -24,23 +24,39 @@ X = np.array([
 y = np.array([0,0,0,0,1,1,1,1])
 
 model = LogisticRegression()
-
 model.fit(X,y)
-y_predict = model.predict(X)
 
+y_predict = model.predict(X)
 probabilities = model.predict_proba(X)
 
-print("="*60)
+print("="*120)
 print(f"\nProbabilities : {probabilities}")
 print(f"Predictions : {y_predict}")
 
-print(f"\nAccuaracy :", accuracy_score(y , y_predict))
-print(f"Precision :", precision_score(y , y_predict))
-print(f"Recall :", recall_score(y , y_predict))
-print(f"F1 :", f1_score(y , y_predict))
-print(f"\nConfusion Matrix\n:", confusion_matrix(y , y_predict))
+print("\nAccuaracy :", accuracy_score(y , y_predict))
+print("Precision :", precision_score(y , y_predict))
+print("Recall :", recall_score(y , y_predict))
+print("F1 :", f1_score(y , y_predict))
+print("\nConfusion Matrix\n:", confusion_matrix(y , y_predict))
 
-print(f"\n----Predicting a student studying 4.5 hours will pass or not----\n")
-new_student = np.array([[4.5]])
-print(model.predict(new_student))
-print(model.predict_proba(new_student))
+print("="*120)
+print(f"----Predicting Weather student will pass or Fail----\n")
+
+new_student = np.array([
+    [4.5],
+    [6]
+    ])
+
+predictions = model.predict(new_student)
+probabilities = model.predict_proba(new_student)[:,1]
+
+for hours,prediction,probability in zip(
+    new_student.flatten(), 
+    predictions, 
+    probabilities
+    ):
+    print(
+        f"{hours} hours :"
+        f"{'Pass' if prediction == 1 else 'Fail'}"
+        f"({probability:.2%} Pass Probability)"
+    )
