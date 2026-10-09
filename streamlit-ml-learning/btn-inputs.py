@@ -21,6 +21,11 @@ if st.button("Show message"):
 
 st.divider()
 
+model = st.selectbox(
+    "Choose a Model",
+    ["Logistic Regression" , "Decision Tree" , "Random Forest"]
+)
+
 if st.button("Show my current learning"):
     st.info("I am learning Streamlit to build " \
     "interactive Machine Learning dashboards.")
